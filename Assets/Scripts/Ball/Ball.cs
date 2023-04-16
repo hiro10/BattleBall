@@ -69,11 +69,12 @@ public class Ball : MonoBehaviour
     }
 
     /// <summary>
-    /// xŽ²‚Ì”½”­—Í
+    /// xŽ²‚Ì”½”­—Í(‰¡‚Ìƒpƒhƒ‹‚É‚ ‚½‚é‚Æ‚«)
     /// </summary>
     /// <param name="boundary"></param>
     public void BounceX(float boundary)
     {
+        SoundManager.instance.PlaySE(SoundManager.SE.HitWall);
         float durationAfterBounce = (position.x - boundary) / velocity.x;
         position.x = 2f * boundary - position.x;
         velocity.x = -velocity.x;
@@ -87,6 +88,7 @@ public class Ball : MonoBehaviour
     /// <param name="boundary"></param>
     public void BounceY(float boundary)
     {
+        
         float durationAfterBounce = (position.y - boundary) / velocity.y;
         position.y = 2f * boundary - position.y;
         velocity.y = -velocity.y;

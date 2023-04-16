@@ -131,7 +131,7 @@ public class Paddle : MonoBehaviour
     {
         score = newScore;
         scoreText.SetText("{0}", newScore);
-        scoreMaterial.SetColor(faceColorId, goalColor * (newScore / pointToWin));
+        scoreMaterial.SetColor(faceColorId, goalColor *1f);
         SetExtents(Mathf.Lerp(maxExtents, minExtents, newScore / (pointToWin - 1f)));
 
     }

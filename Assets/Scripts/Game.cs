@@ -26,6 +26,8 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         countdownUntilNewGame = newGameDelay;
+        // タイトルBGMの再生
+        SoundManager.instance.PlayBGM(SoundManager.BGM.Title);
     }
     
     /// <summary>
@@ -104,6 +106,7 @@ public class Game : MonoBehaviour
         bounceX = ball.Position.x - ball.Velocity.x * durationAfterBounce;
         livelyCamera.PushXZ(ball.Velocity);
         ball.BounceY(boundary);
+        SoundManager.instance.PlaySE(SoundManager.SE.HitWall);
         if (defender.HitBall(bounceX, ball.Extents, out float hitFactor))
         {
             ball.SetPositionAndSpeed(bounceX, hitFactor, durationAfterBounce);
@@ -114,7 +117,7 @@ public class Game : MonoBehaviour
             livelyCamera.JostleY();
             if (attacker.ScorePoint(pointToWin))
             {
-                EndGame();
+               StartCoroutine(EndGame());
             }
         }
     }
@@ -122,12 +125,14 @@ public class Game : MonoBehaviour
     /// <summary>
     /// ゲーム終了時の処理
     /// </summary>
-    void EndGame()
+    IEnumerator EndGame()
     {
         countdownUntilNewGame = newGameDelay;
         countDownText.SetText("GAME OVER");
         countDownText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
         ball.EndGame();
+        yield return new WaitForSeconds(2f);
     }
 
     /// <summary>
